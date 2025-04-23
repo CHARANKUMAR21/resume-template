@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Resume template</title>
+    <style>
+  body {
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+  }
+
+  .h2 {
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .container {
+    width: 90%;
+    max-width: 1200px;
+    background-color: aqua;
+    margin: 20px auto;
+    display: flex;
+    flex-wrap: wrap;
+    border-radius: 35px;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .buttonbox {
+    flex: 100px;
+    width: 90%;
+    background-color: aquamarine;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin: 10px;
+    border: 1px solid black;
+    border-radius: 25px;
+    padding: 20px;
+  }
+
+  .buttonbox button {
+    background-color: blanchedalmond;
+    padding: 10px;
+    margin: 10px auto;
+    width: 30%;
+    font-size: 1rem;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .buttonbox button:hover {
+    background-color: burlywood;
+  }
+
+  .inputbox {
+    flex: 500px;
+    border: 1px solid black;
+    border-radius: 20px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #fff;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="number"],
+  input[type="url"],
+  input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    background-color: aqua;
+    border: 1px solid #ab2c2c;
+    box-sizing: border-box;
+  }
+
+
+</style>
+
+    </style>
+  </head>
+  <body>
+    <h2 class="h2">Dynamic Resume Template Generator</h2>
+    <div class="container">
+      <div class="buttonbox">
+        <button id="name">Name</button>
+        <button id="email">Email</button>
+        <button id="mobile">Mobile</button>
+        <button id="linkedin">Linkedin</button>
+        <button id="image">Image</button>
+        <button id="skills">Skills</button>
+      </div>
+      <div class="inputbox" id="inputbox">
+        <div id="namediv"></div>
+        <div id="emaildiv"></div>
+        <div id="mobilediv"></div>
+        <div id="linkedindiv"></div>
+        <div id="imagediv"></div>
+        <div id="skillsdiv"></div>
+      </div>
+    </div>
+    <script>
+      function validateInput(input, pattern, message) {
+        const errorMsg = document.createElement("div");
+        errorMsg.style.color = "red";
+        errorMsg.style.fontSize = "12px";
+        errorMsg.style.marginTop = "4px";
+        errorMsg.style.display = "none";
+        input.insertAdjacentElement("afterend", errorMsg);
+    
+        input.addEventListener("input", () => {
+          if (pattern.test(input.value)) {
+            input.style.border = "2px solid green";
+            errorMsg.style.display = "none";
+          } else {
+            input.style.border = "2px solid red";
+          }
+        });
+    
+        input.addEventListener("blur", () => {
+          if (!pattern.test(input.value)) {
+            errorMsg.innerText = message;
+            errorMsg.style.display = "block";
+          } else {
+            errorMsg.style.display = "none";
+          }
+        });
+      }
+    
+      const namediv = document.getElementById("namediv");
+      const emaildiv = document.getElementById("emaildiv");
+      const mobilediv = document.getElementById("mobilediv");
+      const linkedindiv = document.getElementById("linkedindiv");
+      const imagediv = document.getElementById("imagediv");
+      const skillsdiv = document.getElementById("skillsdiv");
+    
+      const namebtn = document.getElementById("name");
+      namebtn.addEventListener("click", () => {
+        const input = document.createElement("input");
+        input.type = "text";
+        input.id = "namelabel";
+        input.placeholder = "Enter your full name";
+        input.className = "addmargin";
+    
+        const label = document.createElement("label");
+        label.innerText = "Name :";
+        label.setAttribute("for", "namelabel");
+    
+        namediv.append(label, input);
+        validateInput(input, /^[A-Za-z ]{3,50}$/, "Name must be 3-50 characters long and only letters and spaces.");
+        namebtn.style.pointerEvents = "none";
+      });
+    
+      const emailbtn = document.getElementById("email");
+      emailbtn.addEventListener("click", () => {
+        const input = document.createElement("input");
+        input.type = "email";
+        input.id = "emaillabel";
+        input.placeholder = "Enter your email";
+        input.className = "addmargin";
+    
+        const label = document.createElement("label");
+        label.innerText = "Email :";
+        label.setAttribute("for", "emaillabel");
+    
+        emaildiv.append(label, input);
+        validateInput(input, /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/, "Enter a valid email address.");
+        emailbtn.style.pointerEvents = "none";
+      });
+    
+      const mobilebtn = document.getElementById("mobile");
+      mobilebtn.addEventListener("click", () => {
+        const input = document.createElement("input");
+        input.type = "number";
+        input.id = "mobilelabel";
+        input.placeholder = "+91 XXXXXXXXXX";
+        input.className = "addmargin";
+    
+        const label = document.createElement("label");
+        label.innerText = "Mobile :";
+        label.setAttribute("for", "mobilelabel");
+    
+        mobilediv.append(label, input);
+        validateInput(input, /^[6-9]\d{9}$/, "Enter a valid 10-digit mobile number starting with 6-9.");
+        mobilebtn.style.pointerEvents = "none";
+      });
+    
+      const linkedinbtn = document.getElementById("linkedin");
+      linkedinbtn.addEventListener("click", () => {
+        const input = document.createElement("input");
+        input.type = "url";
+        input.id = "linkedinlabel";
+        input.placeholder = "LinkedIn profile URL";
+        input.className = "addmargin";
+    
+        const label = document.createElement("label");
+        label.innerText = "LinkedIn URL :";
+        label.setAttribute("for", "linkedinlabel");
+    
+        linkedindiv.append(label, input);
+        validateInput(input, /^https:\/\/(www\.)?linkedin\.com\/.*$/, "Enter a valid LinkedIn URL starting with https://linkedin.com/");
+        linkedinbtn.style.pointerEvents = "none";
+      });
+    
+      const imagebtn = document.getElementById("image");
+      imagebtn.addEventListener("click", () => {
+        const input = document.createElement("input");
+        input.type = "file";
+        input.accept = "image/*";
+        input.id = "imagelabel";
+        input.className = "addmargin";
+    
+        const label = document.createElement("label");
+        label.innerText = "Upload Image :";
+        label.setAttribute("for", "imagelabel");
+    
+        imagediv.append(label, input);
+        imagebtn.style.pointerEvents = "none";
+      });
+    
+      const skillsbtn = document.getElementById("skills");
+      skillsbtn.addEventListener("click", () => {
+        const input = document.createElement("input");
+        input.type = "text";
+        input.id = "skillslabel";
+        input.placeholder = "Enter your skills";
+        input.className = "addmargin";
+    
+        const label = document.createElement("label");
+        label.innerText = "Skills :";
+        label.setAttribute("for", "skillslabel");
+    
+        skillsdiv.append(label, input);
+        validateInput(input, /^([a-zA-Z]+)(,\s*[a-zA-Z]+)*$/, "Enter skills separated by commas (e.g., HTML, CSS, JavaScript).");
+        skillsbtn.style.pointerEvents = "none";
+      });
+    </script>
+    
+  </body>
+</html>
